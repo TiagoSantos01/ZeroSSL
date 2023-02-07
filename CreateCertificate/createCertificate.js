@@ -36,11 +36,9 @@ fetch(`${DNS}?access_key=${apikey_zerossl}`, {
                 core.setOutput('cname_validation_p2', validation[ssl_dns].cname_validation_p2);
 
                 core.setOutput('cname_validation_ttl', '3600');
-
             }
         } catch (e) {
             core.setFailed(Result.error);
         }
-
     }).catch(e => core.setFailed("To transform response into json")))
     .catch(e => core.setFailed("Failed when trying to request certificate verification"))
