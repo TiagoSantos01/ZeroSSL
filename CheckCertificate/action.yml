@@ -18,7 +18,7 @@ outputs:
     description: getting certificate object
 runs:
   using: node16 
-  main: ./checkCertificate.js --experimental-fetch
+  main: ./checkCertificate.js
 branding:
   icon: unlock
   color: gray-dark
