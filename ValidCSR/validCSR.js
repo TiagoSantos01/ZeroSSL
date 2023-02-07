@@ -15,6 +15,8 @@ fetch(`${DNS}/csr?access_key=${apikey_zerossl}`, {
         body: formData
     })
     .then(Response => Response.json().then(Result => {
+            core.info(Result)
+
             core.setOutput("valid", Result.valid)
             if (!Result.valid)
                 core.error("CSR invalid")
