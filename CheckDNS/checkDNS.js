@@ -15,22 +15,24 @@ body.append("validation_method", validation_method);
 body.append("validation_email", validation_email);
 
 let retry = 0;
-
+core.setOutput("valid", false)
 const CheckDNS = () => {
     fetch(`${DNS}/${ssl_id}/challenges?access_key=${apikey_zerossl}`, {
             method: 'POST',
             body: body
         })
         .then(Response => Response.json().then(Result => {
+            core.info(Result)
             if (Result.error != null) {
                 retry++;
                 if (retry < 10)
                     setTimeout(CheckDNS, 5 * 1000);
                 if (retry >= 10)
                     core.setFailed(Result.error);
-            } else
+            } else {
                 core.info("Dns Valid");
-            core.setOutput("valid", (Result.error != null));
+                core.setOutput("valid", true)
+            }
         }).catch(e => core.setFailed("To transform response into json")))
         .catch(e => core.setFailed("Error request valid DNS"))
 }
