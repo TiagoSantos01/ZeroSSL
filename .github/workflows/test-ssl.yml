@@ -162,7 +162,7 @@ jobs:
           ssl-id: '${{ needs.CreateCertificate.outputs.id }}'    
           validation_method: 'CNAME_CSR_HASH'   
           validation_email: ''
-DownloadCertificate:
+  DownloadCertificate:
     needs: [CreateCertificate]
     if: needs.VerifyCertificate.outputs.id != '' && needs.CreateCertificate.outputs.id != ''
     name: Download Certificate
@@ -175,8 +175,8 @@ DownloadCertificate:
           path: ./.actions/ZeroSSL
           ref: main
       - name: Download certifacte
-        id: verify_dns
-        uses: ./.actions/ZeroSSL/DonwloadCertificate
+        id: downloadCertificate
+        uses: ./.actions/ZeroSSL/DownloadCertificate
         with:
           apikey-zerossl: '${{ secrets.APIKEY_ZEROSSL }}'
           ssl-id: '${{needs.VerifyCertificate.outputs.id}}${{ needs.CreateCertificate.outputs.id }}'    
