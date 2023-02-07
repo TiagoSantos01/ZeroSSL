@@ -23,7 +23,7 @@ jobs:
           ref: main
       - name: Check Certifcate exist
         id: check_certificate
-        uses: ./.actions/ZeroSSLCheckCertificate
+        uses: ./.actions/ZeroSSL/CheckCertificate
         with:
           apikey-zerossl: '${{ secrets.APIKEY_ZEROSSL }}'
           ssl-certificate-status  : issued
@@ -31,14 +31,14 @@ jobs:
       - name: Valid CSR
         if: steps.check_certificate.outputs.id == ''
         id: csr
-        uses: ./.actions/ZeroSSLValidCSR
+        uses: ./.actions/ZeroSSL/ValidCSR
         with:
           apikey-zerossl: '${{ secrets.APIKEY_ZEROSSL }}'
           ssl-csr: '${{ secrets.CSR }}'
       - name: Create Certicate
         if: steps.csr.outputs.valid == 'true'
         id: create_certificate
-        uses: ./.actions/ZeroSSLCreateCertificate
+        uses: ./.actions/ZeroSSL/CreateCertificate
         with:
           apikey-zerossl: '${{ secrets.APIKEY_ZEROSSL }}'
           ssl-dns: '${{ secrets.DNS }}'    
