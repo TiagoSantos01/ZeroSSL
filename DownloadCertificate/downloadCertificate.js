@@ -7,7 +7,7 @@ const apikey_zerossl = core.getInput('apikey-zerossl');
 const ssl_id = core.getInput('ssl-id');
 const ssl_path = core.getInput('ssl-path');
 
-const DNS = 'api.zerossl.com/certificates';
+const DNS = 'https://api.zerossl.com/certificates';
 
 
 
