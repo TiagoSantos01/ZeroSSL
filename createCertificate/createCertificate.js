@@ -6,7 +6,7 @@ const ssl_csr = core.getInput('ssl-csr');
 const ssl_validaty_days = core.getInput('ssl-validaty-days');
 const ssl_strict_domains = core.getInput('ssl-strict-domains');
 
-const DNS = 'api.zerossl.com/certificates';
+const DNS = 'https://api.zerossl.com/certificates';
 
 const body = new FormData;
 body.append("certificate_domains", ssl_dns)
