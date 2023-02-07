@@ -69,9 +69,9 @@ jobs:
           token: '${{ secrets.TOKEN_CPANEL }}'
           user: '${{ secrets.USER_CPANEL }}'   
           zone: '${{ secrets.ZONE_CPANEL }}' 
-          name: '${{ needs.CreateCertificate.outputs.name }}'  
-          value: '${{ needs.CreateCertificate.outputs.value }}'  
-          ttl: '${{ needs.CreateCertificate.outputs.ttl }}'  
+          name: '${{ needs.CreateCertificate.outputs.cname_validation_p1 }}'  
+          value: '${{ needs.CreateCertificate.outputs.cname_validation_p2 }}'  
+          ttl: '${{ needs.CreateCertificate.outputs.cname_validation_ttl }}'  
       - name: Verify DNS by Cname
         if: steps.set_cname_dns.outputs.success == 'true'
         id: verify_dns
