@@ -19,11 +19,11 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: TiagoSantos01/ZeroSSL
-          path: ./.actions/
+          path: ./.actions/ZeroSSL
           ref: main
       - name: Check Certifcate exist
         id: check_certificate
-        uses: ./.actions/CheckCertificate
+        uses: ./.actions/ZeroSSLCheckCertificate
         with:
           apikey-zerossl: '${{ secrets.APIKEY_ZEROSSL }}'
           ssl-certificate-status  : issued
@@ -31,14 +31,14 @@ jobs:
       - name: Valid CSR
         if: steps.check_certificate.outputs.id == ''
         id: csr
-        uses: ./.actions/ValidCSR
+        uses: ./.actions/ZeroSSLValidCSR
         with:
           apikey-zerossl: '${{ secrets.APIKEY_ZEROSSL }}'
           ssl-csr: '${{ secrets.CSR }}'
       - name: Create Certicate
         if: steps.csr.outputs.valid == 'true'
         id: create_certificate
-        uses: ./.actions/CreateCertificate
+        uses: ./.actions/ZeroSSLCreateCertificate
         with:
           apikey-zerossl: '${{ secrets.APIKEY_ZEROSSL }}'
           ssl-dns: '${{ secrets.DNS }}'    
@@ -87,13 +87,13 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: TiagoSantos01/ZeroSSL
-          path: ./.actions/
+          path: ./.actions/ZeroSSL
           ref: main
       - name: DownLoad action
         uses: actions/checkout@v3
         with:
           repository: TiagoSantos01/Cpanel
-          path: ./.actions/
+          path: ./.actions/Cpanel
           ref: main
       - name: Get Deploy Key
         id: get_encrypted
@@ -130,7 +130,7 @@ jobs:
           echo "::set-output name=cname_validation_ttl::$cname_validation_ttl"          
       - name: Add values Cname in Cpanel
         id: set_cname_dns
-        uses: ./.actions/DNS/EditZone
+        uses: ./.actions/Cpanel/DNS/EditZone
         with:
           token: '${{ secrets.TOKEN_CPANEL }}'
           user: '${{ secrets.USER_CPANEL }}'   
@@ -143,7 +143,7 @@ jobs:
       - name: Verify DNS by Cname
         if: steps.set_cname_dns.outputs.success == 'true'
         id: verify_dns
-        uses: ./.actions/CheckDNS
+        uses: ./.actions/ZeroSSL/CheckDNS
         with:
           apikey-zerossl: '${{ secrets.APIKEY_ZEROSSL }}'
           ssl-id: '${{ needs.CreateCertificate.outputs.id }}'    
