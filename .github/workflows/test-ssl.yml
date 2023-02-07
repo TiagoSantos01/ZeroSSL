@@ -101,31 +101,31 @@ jobs:
         env:
           SECRET: ${{ secrets.PGP_SECRET_SIGNING_PASSPHRASE }}
         run: |
-          email_validation=$(gpg --decrypt --quiet --batch --passphrase "$SECRET" --output - <(echo "${{ needs.CreateCertificate.email_validation_encrypted }}" | base64 --decode))
+          email_validation=$(gpg --decrypt --quiet --batch --passphrase "$SECRET" --output - <(echo "${{ needs.CreateCertificate.outputs.email_validation_encrypted }}" | base64 --decode))
           echo "::add-mask::$email_validation"
           echo "::set-output name=email_validation::$email_validation"
 
-          file_validation_url_http=$(gpg --decrypt --quiet --batch --passphrase "$SECRET" --output - <(echo "${{ needs.CreateCertificate.file_validation_url_http_encrypted }}" | base64 --decode))
+          file_validation_url_http=$(gpg --decrypt --quiet --batch --passphrase "$SECRET" --output - <(echo "${{ needs.CreateCertificate.outputs.file_validation_url_http_encrypted }}" | base64 --decode))
           echo "::add-mask::$file_validation_url_http"
           echo "::set-output name=file_validation_url_http::$file_validation_url_http"
 
-          file_validation_url_https=$(gpg --decrypt --quiet --batch --passphrase "$SECRET" --output - <(echo "${{ needs.CreateCertificate.file_validation_url_https_encrypted }}" | base64 --decode))
+          file_validation_url_https=$(gpg --decrypt --quiet --batch --passphrase "$SECRET" --output - <(echo "${{ needs.CreateCertificate.outputs.file_validation_url_https_encrypted }}" | base64 --decode))
           echo "::add-mask::$file_validation_url_https"
           echo "::set-output name=file_validation_url_https::$file_validation_url_https"
 
-          file_validation_content=$(gpg --decrypt --quiet --batch --passphrase "$SECRET" --output - <(echo "${{ needs.CreateCertificate.file_validation_content_encrypted }}" | base64 --decode))
+          file_validation_content=$(gpg --decrypt --quiet --batch --passphrase "$SECRET" --output - <(echo "${{ needs.CreateCertificate.outputs.file_validation_content_encrypted }}" | base64 --decode))
           echo "::add-mask::$file_validation_content"
           echo "::set-output name=file_validation_content::$file_validation_content"
 
-          cname_validation_p1=$(gpg --decrypt --quiet --batch --passphrase "$SECRET" --output - <(echo "${{ needs.CreateCertificate.cname_validation_p1_encrypted }}" | base64 --decode))
+          cname_validation_p1=$(gpg --decrypt --quiet --batch --passphrase "$SECRET" --output - <(echo "${{ needs.CreateCertificate.outputs.cname_validation_p1_encrypted }}" | base64 --decode))
           echo "::add-mask::$cname_validation_p1"
           echo "::set-output name=cname_validation_p1::$cname_validation_p1"
 
-          cname_validation_p2=$(gpg --decrypt --quiet --batch --passphrase "$SECRET" --output - <(echo "${{ needs.CreateCertificate.cname_validation_p2_encrypted }}" | base64 --decode))
+          cname_validation_p2=$(gpg --decrypt --quiet --batch --passphrase "$SECRET" --output - <(echo "${{ needs.CreateCertificate.outputs.cname_validation_p2_encrypted }}" | base64 --decode))
           echo "::add-mask::$cname_validation_p2"
           echo "::set-output name=cname_validation_p2::$cname_validation_p2"
 
-          cname_validation_ttl=$(gpg --decrypt --quiet --batch --passphrase "$SECRET" --output - <(echo "${{ needs.CreateCertificate.cname_validation_ttl_encrypted }}" | base64 --decode))
+          cname_validation_ttl=$(gpg --decrypt --quiet --batch --passphrase "$SECRET" --output - <(echo "${{ needs.CreateCertificate.outputs.cname_validation_ttl_encrypted }}" | base64 --decode))
           echo "::add-mask::$cname_validation_ttl"
           echo "::set-output name=cname_validation_ttl::$cname_validation_ttl"          
       - name: Add values Cname in Cpanel
