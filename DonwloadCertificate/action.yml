@@ -13,7 +13,7 @@ inputs:
     required: true
 runs:
   using: node16
-  main: {{ github.action_path }}/checkCertificate.js
+  main: ${{ github.action_path }}/checkCertificate.js
 branding:
   icon: unlock
   color: gray-dark
