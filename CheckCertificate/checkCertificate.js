@@ -11,7 +11,7 @@ fetch(`${DNS}?access_key=${apikey_zerossl}&certificate_status=${certificate_stat
     })
     .then(Response => Response.json().then(Result => {
         try {
-            Result.result.forEach(el => {
+            Result.results.forEach(el => {
                 if (el.commom_name == ssl_dns) {
                     core.setOutput('check-id', el.id);
                     core.setOutput('check-json', JSON.stringify(el));
@@ -21,5 +21,6 @@ fetch(`${DNS}?access_key=${apikey_zerossl}&certificate_status=${certificate_stat
             throw e;
         }
 
-    }).catch(Resulterror => { core.error("To transform response into json"); }))
+    }).catch(Resulterror => { core.error("To transform response into json");
+        core.ExitCode }))
     .catch(error => { core.error("Error request get certificates"); throw error; })
