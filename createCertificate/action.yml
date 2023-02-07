@@ -33,7 +33,6 @@ outputs:
     description: value for DNS validation via CNAME
   cname_validation_ttl:
     description: time ttl for DNS validation via CNAME
-    default: '3600'
   check-id:
     description: getting the certificate hash
 runs:

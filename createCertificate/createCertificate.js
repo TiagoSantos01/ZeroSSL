@@ -31,6 +31,8 @@ fetch(`${DNS}?access_key=${apikey_zerossl}`, {
             core.setOutput('cname_validation_p1', validation[ssl_dns].cname_validation_p1);
             core.setOutput('cname_validation_p2', validation[ssl_dns].cname_validation_p2);
 
+            core.setOutput('cname_validation_ttl', '3600');
+
         }
     }).catch(Resulterror => { throw new Error("Error", Resulterror); }))
     .catch(error => { throw new Error("Error request get certificates", error); })
