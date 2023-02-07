@@ -10,12 +10,11 @@ fetch(`${DNS}?access_key=${apikey_zerossl}&certificate_status=${certificate_stat
         method: 'GET'
     })
     .then(Response => Response.json().then(Result => {
-        console.log(Result)
         Result.result.forEach(el => {
             if (el.commom_name == ssl_dns) {
                 core.setOutput('check-id', el.id);
                 core.setOutput('check-json', JSON.stringify(el));
             }
         });
-    }).catch(Resulterror => { console.log("Error get response api", Resulterror); }))
-    .catch(error => { console.log("Error request get certificates", error); })
+    }).catch(Resulterror => { throw ("Error get response api", Resulterror); }))
+    .catch(error => { throw ("Error request get certificates", error); })
