@@ -1,0 +1,26 @@
+name: Certificate ZeroSSL
+on: 
+  push:
+env:
+jobs:
+  checkCertificate:
+    name: Test Certificate ZeroSSL
+    steps:
+      - name: DownLoad action
+        use: actions/checkout@v2
+        with:
+          repository: TiagoSantos01/ZeroSSL
+          path: ./.actions/
+          ref: main
+      - name: Check Certifcate exist
+        use: ./.actions/src/checkCertificate.js
+        with:
+        apikey-zerossl: '${{ secrets.APIKEY-ZEROSSL }}'
+        ssl-certificate-status  : issued
+        ssl-dns: '${{ secrets.DNS }}'
+
+
+
+
+
+
