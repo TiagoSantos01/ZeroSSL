@@ -4,7 +4,7 @@ const fetch = (...args) =>
     import ('node-fetch').then(({ default: fetch }) => fetch(...args));
 
 const apikey_zerossl = core.getInput('apikey-zerossl');
-const ssl_id = core.get('ssl-id');
+const ssl_id = core.getInput('ssl-id');
 const validation_method = core.get('validation_method');
 const validation_email = core.get('validation_email');
 
