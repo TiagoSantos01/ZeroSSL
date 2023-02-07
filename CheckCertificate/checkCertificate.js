@@ -1,5 +1,5 @@
 import fetch from 'node-fetch';
-const core = require('@actions/core');
+import core from '@actions/core';
 
 const apikey_zerossl = core.getInput('apikey-zerossl');
 const certificate_status = core.getInput('ssl-certificate-status');
