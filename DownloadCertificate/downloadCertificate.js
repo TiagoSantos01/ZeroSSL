@@ -17,11 +17,11 @@ fetch(`${DNS}/${ssl_id}/download/return?access_key=${apikey_zerossl}`, {
     .then(Response => Response.json().then(Result => {
         try {
             var fs = require('fs');
-            fs.appendFile(`${ssl_path}/certificate.crt`, Result['certificate.crt'], function(err) {
+            fs.createWriteStream(`${ssl_path}/certificate.crt`, Result['certificate.crt'], function(err) {
                 if (err) throw err;
                 console.log('Saved!');
             });
-            fs.appendFile(`${ssl_path}/certificate.crt`, Result['ca_bundle.crt'], function(err) {
+            fs.createWriteStream(`${ssl_path}/certificate.crt`, Result['ca_bundle.crt'], function(err) {
                 if (err) throw err;
                 console.log('Saved!');
             });
