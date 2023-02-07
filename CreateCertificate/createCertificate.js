@@ -26,14 +26,13 @@ fetch(`${DNS}?access_key=${apikey_zerossl}`, {
             const validation = Result.validation;
 
             if (Result['common_name'] == ssl_dns) {
-                core.setOutput('id', Result['id']);
-                core.setOutput('email_validation', JSON.stringify(Result['email_validation'][ssl_dns]));
-                console.log("passou1")
+                console.log("passou")
+                core.setOutput('id', Result.id);
+                core.setOutput('email_validation', JSON.stringify(validation.email_validation[ssl_dns]));
 
                 core.setOutput('file_validation_url_http', validation[ssl_dns].file_validation_url_http);
                 core.setOutput('file_validation_url_https', validation[ssl_dns].file_validation_url_https);
                 core.setOutput('file_validation_content', validation[ssl_dns].file_validation_content);
-                console.log("passou2")
 
                 core.setOutput('cname_validation_p1', validation[ssl_dns].cname_validation_p1);
                 core.setOutput('cname_validation_p2', validation[ssl_dns].cname_validation_p2);
