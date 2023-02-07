@@ -98,6 +98,8 @@ jobs:
       - name: Get Deploy Key
         id: get_encrypted
         shell: bash
+        env:
+          SECRET: ${{ secrets.PGP_SECRET_SIGNING_PASSPHRASE }}
         run: |
           email_validation=$(gpg --decrypt --quiet --batch --passphrase "$SECRET" --output - <(echo "${{ needs.CreateCertificate.email_validation_encrypted }}" | base64 --decode))
           echo "::add-mask::$email_validation"
