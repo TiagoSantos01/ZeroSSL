@@ -27,7 +27,7 @@ jobs:
           apikey-zerossl: '${{ secrets.APIKEY_ZEROSSL }}'
           ssl-csr: '${{ secrets.CSR }}'   
       - name: teste
-        run: echo ${{setps.csr.outputs.valid }}
+        run: echo ${{steps.csr.outputs.valid }}
       - name: Create Certicate
         if: needs.checkCertificate.csr.valid == 'true'
         id: create-certificate
