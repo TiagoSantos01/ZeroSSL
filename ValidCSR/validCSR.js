@@ -12,7 +12,7 @@ formData.append("csr", ssl_csr)
 
 fetch(`${DNS}/csr?access_key=${apikey_zerossl}`, {
         method: 'POST',
-        body: FormData
+        body: formData
     })
     .then(Response => Response.json().then(Result => {
             core.setOutput("valid", Result.valid)
