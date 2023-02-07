@@ -37,6 +37,7 @@ jobs:
           ssl-validaty-days: '90'
           ssl-strict-domains: '1'
   VerifyDns:
+    needs: [CreateCertificate]
     name: Test Certificate ZeroSSL
     runs-on: ubuntu-latest
     steps:
