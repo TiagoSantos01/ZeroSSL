@@ -162,7 +162,25 @@ jobs:
           ssl-id: '${{ needs.CreateCertificate.outputs.id }}'    
           validation_method: 'CNAME_CSR_HASH'   
           validation_email: ''
-
+DownloadCertificate:
+    needs: [CreateCertificate]
+    if: needs.VerifyCertificate.outputs.id != '' && needs.CreateCertificate.outputs.id != ''
+    name: Download Certificate
+    runs-on: ubuntu-latest
+    steps:
+      - name: DownLoad action
+        uses: actions/checkout@v3
+        with:
+          repository: TiagoSantos01/ZeroSSL
+          path: ./.actions/ZeroSSL
+          ref: main
+      - name: Download certifacte
+        id: verify_dns
+        uses: ./.actions/ZeroSSL/DonwloadCertificate
+        with:
+          apikey-zerossl: '${{ secrets.APIKEY_ZEROSSL }}'
+          ssl-id: '${{needs.VerifyCertificate.outputs.id}}${{ needs.CreateCertificate.outputs.id }}'    
+          ssl-path: ${{ github.workspace }}/ssl/
 
 
 
