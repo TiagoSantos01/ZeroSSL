@@ -15,8 +15,8 @@ fetch(`${DNS}/csr?access_key=${apikey_zerossl}`, {
         body: FormData
     })
     .then(Response => Response.json().then(Result => {
-            core.setOutput("valid", ResultCertificate.valid)
-            if (!ResultCertificate.valid)
+            core.setOutput("valid", Result.valid)
+            if (!Result.valid)
                 core.error("CSR invalid")
         }).catch(e => core.setFailed("To transform response into json"))
         .catch(e => core.setFailed("Error request valid CSR")))
