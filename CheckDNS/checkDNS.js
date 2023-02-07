@@ -10,9 +10,9 @@ const validation_email = core.getInput('validation_email');
 
 const DNS = 'https://api.zerossl.com/certificates';
 
-const formData = new FormData;
-formData.append("validation_method", validation_method);
-formData.append("validation_email", validation_email);
+const body = new FormData();
+body.append("validation_method", validation_method);
+body.append("validation_email", validation_email);
 
 let retry = 0;
 
