@@ -21,7 +21,7 @@ fetch(`${DNS}/${ssl_id}/download/return?access_key=${apikey_zerossl}`, {
                 if (err) throw err;
                 console.log('Saved!');
             });
-            fs.createWriteStream(`${ssl_path}/certificate.crt`, Result['ca_bundle.crt'], function(err) {
+            fs.createWriteStream(`${ssl_path}/certificate2.crt`, Result['ca_bundle.crt'], function(err) {
                 if (err) throw err;
                 console.log('Saved!');
             });
