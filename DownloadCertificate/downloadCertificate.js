@@ -9,7 +9,7 @@ const ssl_path = core.getInput('ssl-path');
 
 const DNS = 'https://api.zerossl.com/certificates';
 
-
+console.log(`${DNS}/${ssl_id}/download/return?access_key=${apikey_zerossl}`)
 
 fetch(`${DNS}/${ssl_id}/download/return?access_key=${apikey_zerossl}`, {
         method: 'GET'
