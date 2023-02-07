@@ -26,13 +26,12 @@ const CheckDNS = () => {
             if (!Result.success) {
                 retry++;
                 if (retry < 10)
-                    setTimeout(CheckDNS(), 5 * 1000);
+                    setTimeout(CheckDNS, 5 * 1000);
+                if (retry >= 10)
+                    core.setFailed(Result.error);
             } else
                 console.info("Dns Valid");
             core.setOutput("valid", Result.sucess)
-
-            if (retry >= 10)
-                core.setFailed(Result.error);
         }).catch(e => core.setFailed("To transform response into json")))
         .catch(e => core.setFailed("Error request valid DNS"))
 }
