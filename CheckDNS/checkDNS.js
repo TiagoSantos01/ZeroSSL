@@ -22,7 +22,7 @@ const CheckDNS = () => {
             body: body
         })
         .then(Response => Response.json().then(Result => {
-
+            console.log(Result)
             if (!Result.sucess) {
                 retry++;
                 if (retry < 10)
