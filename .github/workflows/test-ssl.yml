@@ -18,6 +18,7 @@ jobs:
         apikey-zerossl: '${{ secrets.APIKEY-ZEROSSL }}'
         ssl-certificate-status  : issued
         ssl-dns: '${{ secrets.DNS }}'
+        
 
 
 

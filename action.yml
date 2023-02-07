@@ -56,7 +56,7 @@ outputs:
     description: getting certificate object
 runs:
   using: node16
-  main: src/activate-license.js
+  main: checkCertificate.js
   post: src/return-license.js
 branding:
   icon: unlock
