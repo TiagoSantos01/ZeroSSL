@@ -1,8 +1,8 @@
 const core = require('@actions/core');
 
 const apikey_zerossl = core.getInput('apikey-zerossl');
-const ssl_id = core.get('ssl-id');
-const ssl_path = core.get('ssl-path');
+const ssl_id = core.getInput('ssl-id');
+const ssl_path = core.getInput('ssl-path');
 
 const DNS = 'api.zerossl.com/certificates';
 
