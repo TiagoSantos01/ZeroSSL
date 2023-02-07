@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: DownLoad action
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: TiagoSantos01/ZeroSSL
           path: ./.actions/
