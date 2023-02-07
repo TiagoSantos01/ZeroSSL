@@ -20,16 +20,14 @@ jobs:
           ssl-certificate-status  : issued
           ssl-dns: '${{ secrets.DNS }}'
       - name: Valid CSR
-        if: needs.checkCertificate.check_certificate.id == ''
+        if: steps.check_certificate.outputs.id == ''
         id: csr
         uses: ./.actions/ValidCSR
         with:
           apikey-zerossl: '${{ secrets.APIKEY_ZEROSSL }}'
-          ssl-csr: '${{ secrets.CSR }}'   
-      - name: teste
-        run: echo ${{steps.csr.outputs.valid }}
+          ssl-csr: '${{ secrets.CSR }}'
       - name: Create Certicate
-        if: needs.checkCertificate.csr.valid == 'true'
+        if: steps.csr.outputs.valid == 'true'
         id: create-certificate
         uses: ./.actions/CreateCertificate
         with:
