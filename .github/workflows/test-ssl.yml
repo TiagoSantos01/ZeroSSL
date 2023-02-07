@@ -20,7 +20,7 @@ jobs:
           ssl-certificate-status  : issued
           ssl-dns: '${{ secrets.DNS }}'
       - name: Valid CSR
-        if: check_certificate.id == ''
+        if: needs.checkCertificate.check_certificate.id == ''
         id: csr
         uses: ./.actions/ValidCSR
         with:
