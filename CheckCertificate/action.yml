@@ -18,7 +18,7 @@ outputs:
     description: getting certificate object
 runs:
   using: node16
-  main: ${{ github.action_path }}/checkCertificate.js
+  main: ./checkCertificate.js
 branding:
   icon: unlock
   color: gray-dark
