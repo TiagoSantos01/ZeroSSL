@@ -13,14 +13,14 @@ jobs:
           path: ./.actions/
           ref: main
       - name: Check Certifcate exist
-        id: check-certificate
+        id: check_certificate
         uses: ./.actions/CheckCertificate
         with:
           apikey-zerossl: '${{ secrets.APIKEY_ZEROSSL }}'
           ssl-certificate-status  : issued
           ssl-dns: '${{ secrets.DNS }}'
       - name: Valid CSR
-        if: check-certificate.id == ''
+        if: check_certificate.id == ''
         id: csr
         uses: ./.actions/ValidCSR
         with:
