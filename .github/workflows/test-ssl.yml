@@ -165,6 +165,7 @@ jobs:
   DownloadCertificate:
     # needs: [VerifyDns]
     if: ${{ always() }}
+    needs: [VerifyCertificate]
     # if: needs.VerifyCertificate.outputs.id != '' || needs.CreateCertificate.outputs.id != ''
     name: Download Certificate
     runs-on: ubuntu-latest
