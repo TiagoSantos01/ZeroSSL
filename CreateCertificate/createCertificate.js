@@ -39,7 +39,7 @@ fetch(`${DNS}?access_key=${apikey_zerossl}`, {
 
             }
         } catch (e) {
-            core.setFailed(Result);
+            core.setFailed(Result.error);
         }
 
     }).catch(e => core.setFailed("To transform response into json")))
