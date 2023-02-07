@@ -41,7 +41,7 @@ jobs:
       - name: Export Id Certificate
         id: export_id
         run: | 
-          echo ${{ steps.create_certificate.outputs.id }} ;
+          echo '${{ steps.create_certificate.outputs.id }}'' ;
           echo "id=${{ steps.create_certificate.outputs.id }}" >> $GITHUB_OUTPUT
   VerifyDns:
     needs: [CreateCertificate]
