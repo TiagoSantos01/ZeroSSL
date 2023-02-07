@@ -15,9 +15,9 @@ jobs:
         id: check-certificate
         uses: ./.actions/src/checkCertificate.js
         with:
-        apikey-zerossl: '${{ secrets.APIKEY-ZEROSSL }}'
-        ssl-certificate-status  : issued
-        ssl-dns: '${{ secrets.DNS }}'
+          apikey-zerossl: '${{ secrets.APIKEY-ZEROSSL }}'
+          ssl-certificate-status  : issued
+          ssl-dns: '${{ secrets.DNS }}'
 
 
 
