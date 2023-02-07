@@ -16,5 +16,5 @@ fetch(`${DNS}?access_key=${apikey_zerossl}&certificate_status=${certificate_stat
                 core.setOutput('check-json', JSON.stringify(el));
             }
         });
-    }).catch(Resulterror => { core.error("Error get response api", Resulterror); }))
-    .catch(error => { throw ("Error request get certificates", error); })
+    }).catch(Resulterror => { core.error(Resulterror); throw 'test' }))
+    .catch(error => { core.error(error) })
