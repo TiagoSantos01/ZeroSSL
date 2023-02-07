@@ -181,7 +181,7 @@ jobs:
         uses: ./.actions/ZeroSSL/DownloadCertificate
         with:
           apikey-zerossl: '${{ secrets.APIKEY_ZEROSSL }}'
-          ssl-id: '${{needs.VerifyCertificate.outputs.id}}${{ needs.CreateCertificate.outputs.id }}'    
+          ssl-id: '${{ needs.VerifyCertificate.outputs.id }}${{ needs.CreateCertificate.outputs.id }}'    
           ssl-path: ${{ github.workspace }}/ssl/
 
 
