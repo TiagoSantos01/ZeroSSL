@@ -18,11 +18,10 @@ fetch(`${DNS}?access_key=${apikey_zerossl}&certificate_status=${certificate_stat
                 }
             });
         } catch (e) {
-            throw e;
+            core.setFailed(e.message);
         }
 
     }).catch(Resulterror => {
-        core.error("To transform response into json");
-        core.endGroup()
+        core.setFailed("To transform response into json");
     }))
     .catch(error => { core.error("Error request get certificates"); throw error; })
