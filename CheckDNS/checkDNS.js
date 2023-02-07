@@ -5,8 +5,8 @@ const fetch = (...args) =>
 
 const apikey_zerossl = core.getInput('apikey-zerossl');
 const ssl_id = core.getInput('ssl-id');
-const validation_method = core.get('validation_method');
-const validation_email = core.get('validation_email');
+const validation_method = core.getInput('validation_method');
+const validation_email = core.getInput('validation_email');
 
 const DNS = 'https://api.zerossl.com/certificates';
 
