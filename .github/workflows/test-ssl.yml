@@ -5,8 +5,6 @@ jobs:
   CreateCertificate:
     name: Test Certificate ZeroSSL
     runs-on: ubuntu-latest
-    outputs:
-      id: ${{ steps.export_id.outputs.id }}
     steps:
       - name: DownLoad action
         uses: actions/checkout@v3
@@ -38,13 +36,8 @@ jobs:
           ssl-csr: '${{ secrets.CSR }}'   
           ssl-validaty-days: '90'
           ssl-strict-domains: '1'
-      - name: Export Id Certificate
-        id: export_id
-        run: | 
-          echo '${{ steps.create_certificate.outputs.cname_validation_p1 }}' ;
-          echo "id=${{ steps.create_certificate.outputs.id }}" >> $GITHUB_OUTPUT
   VerifyDns:
-    needs: [CreateCertificate]
+    needs: [Builds]
     name: Test Certificate ZeroSSL
     runs-on: ubuntu-latest
     steps:
@@ -55,7 +48,7 @@ jobs:
           path: ./.actions/
           ref: main
       - name: teste
-        run: echo ${{ needs.CreateCertificate.outputs.id }}
+        run: echo ${{ needs.CreateCertificate.create_certificate.outputs.id }}
       # - name: Create Certicate
       #   if: needs.CreateCertificate.create_certificate.outputs.id == 'true'
       #   id: create_certificate
