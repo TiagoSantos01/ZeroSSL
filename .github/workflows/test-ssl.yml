@@ -163,7 +163,7 @@ jobs:
           validation_method: 'CNAME_CSR_HASH'   
           validation_email: ''
   DownloadCertificate:
-    needs: [VerifyDns]
+    # needs: [VerifyDns]
     # if: needs.VerifyCertificate.outputs.id != '' || needs.CreateCertificate.outputs.id != ''
     name: Download Certificate
     runs-on: ubuntu-latest
