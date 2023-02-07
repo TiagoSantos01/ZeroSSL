@@ -4,6 +4,7 @@ on:
 jobs:
   checkCertificate:
     name: Test Certificate ZeroSSL
+    runs-on: ubuntu-latest
     steps:
       - name: DownLoad action
         uses: actions/checkout@v2
