@@ -23,7 +23,7 @@ const CheckDNS = () => {
         })
         .then(Response => Response.json().then(Result => {
             console.log(Result)
-            if (!Result.sucess) {
+            if (!Result.success) {
                 retry++;
                 if (retry < 10)
                     setInterval(CheckDNS(), 5 * 1000);
