@@ -1,5 +1,4 @@
 const core = require('@actions/core');
-const FormData = require('form-data');
 const fetch = (...args) =>
     import ('node-fetch').then(({ default: fetch }) => fetch(...args));
 
@@ -8,8 +7,6 @@ const ssl_id = core.getInput('ssl-id');
 const ssl_path = core.getInput('ssl-path');
 
 const DNS = 'https://api.zerossl.com/certificates';
-
-console.log(`${DNS}/${ssl_id}/download/return?access_key=${apikey_zerossl}`)
 
 fetch(`${DNS}/${ssl_id}/download/return?access_key=${apikey_zerossl}`, {
         method: 'GET'
