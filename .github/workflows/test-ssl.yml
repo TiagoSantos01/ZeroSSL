@@ -6,7 +6,7 @@ jobs:
     name: Check if you have valid certificate ZeroSSL
     runs-on: ubuntu-latest
     outputs:
-      id: ${{ steps.create_certificate.outputs.id }}
+      id: ${{ steps.check_certificate.outputs.id }}
     steps:
       - name: Download action
         uses: actions/checkout@v3
@@ -164,9 +164,9 @@ jobs:
           validation_email: ''
   DownloadCertificate:
     # needs: [VerifyDns]
-    if: ${{ always() }}
-    needs: [VerifyCertificate,VerifyDns]
-    # if: needs.VerifyCertificate.outputs.id != '' || needs.CreateCertificate.outputs.id != ''
+    # if: ${{ always() }}
+    # needs: [VerifyCertificate,VerifyDns]
+    if: needs.VerifyCertificate.outputs.id != '' || needs.CreateCertificate.outputs.id != ''
     name: Download Certificate
     runs-on: ubuntu-latest
     steps:
