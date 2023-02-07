@@ -135,6 +135,8 @@ jobs:
           token: '${{ secrets.TOKEN_CPANEL }}'
           user: '${{ secrets.USER_CPANEL }}'   
           zone: '${{ secrets.ZONE_CPANEL }}' 
+          cpanelDNS: '${{ secrets.DNS_CPANEL }}' 
+          cpanelPort: '${{ secrets.PORT_CPANEL }}' 
           name: '${{ steps.get_encrypted.outputs.cname_validation_p1 }}'  
           value: '${{ steps.get_encrypted.outputs.cname_validation_p2 }}'  
           ttl: '${{ steps.get_encrypted.outputs.cname_validation_ttl }}'  
