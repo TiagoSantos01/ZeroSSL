@@ -7,13 +7,13 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       id: ${{ steps.create_certificate.outputs.id }}
-      email_validation: ${{ steps.create_certificate.outputs.email_validation }}
-      file_validation_url_http: ${{ steps.create_certificate.outputs.file_validation_url_http }}
-      file_validation_url_https: ${{ steps.create_certificate.outputs.file_validation_url_https }}
-      file_validation_content: ${{ steps.create_certificate.outputs.file_validation_content }}
-      cname_validation_p1: ${{ steps.create_certificate.outputs.cname_validation_p1 }}
-      cname_validation_p2: ${{ steps.create_certificate.outputs.cname_validation_p2 }}
-      cname_validation_ttl: ${{ steps.create_certificate.outputs.cname_validation_ttl }}
+      email_validation_encrypted: ${{ steps.encrypted.outputs.email_validation_encrypted }}
+      file_validation_url_http_encrypted: ${{ steps.encrypted.outputs.file_validation_url_http_encrypted }}
+      file_validation_url_https_encrypted: ${{ steps.encrypted.outputs.file_validation_url_https_encrypted }}
+      file_validation_content_encrypted: ${{ steps.encrypted.outputs.file_validation_content_encrypted }}
+      cname_validation_p1_encrypted: ${{ steps.encrypted.outputs.cname_validation_p1_encrypted }}
+      cname_validation_p2_encrypted: ${{ steps.encrypted.outputs.cname_validation_p2_encrypted }}
+      cname_validation_ttl_encrypted: ${{ steps.encrypted.outputs.cname_validation_ttl_encrypted }}
     steps:
       - name: DownLoad action
         uses: actions/checkout@v3
@@ -45,6 +45,39 @@ jobs:
           ssl-csr: '${{ secrets.CSR }}'   
           ssl-validaty-days: '90'
           ssl-strict-domains: '1'
+      - name: encrypted variables 
+        id: encrypted
+        env:
+          SECRET: ${{ secrets.PGP_SECRET_SIGNING_PASSPHRASE }}
+        run: |
+          echo "::add-mask::${{ steps.create_certificate.outputs.email_validation }}"
+          email_validation_encrypted=$(gpg --symmetric --batch --passphrase "$SECRET" --output - <(echo "${{ steps.create_certificate.outputs.email_validation }}") | base64 -w0)
+          echo "::set-output name=email_validation_encrypted::$email_validation_encrypted"
+
+          echo "::add-mask::${{ steps.create_certificate.outputs.file_validation_url_http }}"
+          file_validation_url_http_encrypted=$(gpg --symmetric --batch --passphrase "$SECRET" --output - <(echo "${{ steps.create_certificate.outputs.file_validation_url_http }}") | base64 -w0)
+          echo "::set-output name=file_validation_url_http_encrypted::$file_validation_url_http_encrypted"
+
+          echo "::add-mask::${{ steps.create_certificate.outputs.file_validation_url_https }}"
+          file_validation_url_https_encrypted=$(gpg --symmetric --batch --passphrase "$SECRET" --output - <(echo "${{ steps.create_certificate.outputs.file_validation_url_https }}") | base64 -w0)
+          echo "::set-output name=file_validation_url_https_encrypted::$file_validation_url_https_encrypted"
+
+          echo "::add-mask::${{ steps.create_certificate.outputs.file_validation_content }}"
+          file_validation_content_encrypted=$(gpg --symmetric --batch --passphrase "$SECRET" --output - <(echo "${{ steps.create_certificate.outputs.file_validation_content }}") | base64 -w0)
+          echo "::set-output name=file_validation_content_encrypted::$file_validation_content_encrypted"
+
+          echo "::add-mask::${{ steps.create_certificate.outputs.cname_validation_p1 }}"
+          cname_validation_p1_encrypted=$(gpg --symmetric --batch --passphrase "$SECRET" --output - <(echo "${{ steps.create_certificate.outputs.cname_validation_p1 }}") | base64 -w0)
+          echo "::set-output name=cname_validation_p1_encrypted::$cname_validation_p1_encrypted"
+
+          echo "::add-mask::${{ steps.create_certificate.outputs.cname_validation_p2 }}"
+          cname_validation_p2_encrypted=$(gpg --symmetric --batch --passphrase "$SECRET" --output - <(echo "${{ steps.create_certificate.outputs.cname_validation_p2 }}") | base64 -w0)
+          echo "::set-output name=cname_validation_p2_encrypted::$cname_validation_p2_encrypted"
+
+          echo "::add-mask::${{ steps.create_certificate.outputs.cname_validation_ttl }}"
+          cname_validation_ttl_encrypted=$(gpg --symmetric --batch --passphrase "$SECRET" --output - <(echo "${{ steps.create_certificate.outputs.cname_validation_ttl }}") | base64 -w0)
+          echo "::set-output name=cname_validation_ttl_encrypted::$cname_validation_ttl_encrypted"
+
   VerifyDns:
     needs: [CreateCertificate]
     name: Verify DNS
@@ -62,6 +95,37 @@ jobs:
           repository: TiagoSantos01/Cpanel
           path: ./.actions/
           ref: main
+      - name: Get Deploy Key
+        id: get_encrypted
+        shell: bash
+        run: |
+          email_validation=$(gpg --decrypt --quiet --batch --passphrase "$SECRET" --output - <(echo "${{ needs.CreateCertificate.email_validation_encrypted }}" | base64 --decode))
+          echo "::add-mask::$email_validation"
+          echo "::set-output name=email_validation::$email_validation"
+
+          file_validation_url_http=$(gpg --decrypt --quiet --batch --passphrase "$SECRET" --output - <(echo "${{ needs.CreateCertificate.file_validation_url_http_encrypted }}" | base64 --decode))
+          echo "::add-mask::$file_validation_url_http"
+          echo "::set-output name=file_validation_url_http::$file_validation_url_http"
+
+          file_validation_url_https=$(gpg --decrypt --quiet --batch --passphrase "$SECRET" --output - <(echo "${{ needs.CreateCertificate.file_validation_url_https_encrypted }}" | base64 --decode))
+          echo "::add-mask::$file_validation_url_https"
+          echo "::set-output name=file_validation_url_https::$file_validation_url_https"
+
+          file_validation_content=$(gpg --decrypt --quiet --batch --passphrase "$SECRET" --output - <(echo "${{ needs.CreateCertificate.file_validation_content_encrypted }}" | base64 --decode))
+          echo "::add-mask::$file_validation_content"
+          echo "::set-output name=file_validation_content::$file_validation_content"
+
+          cname_validation_p1=$(gpg --decrypt --quiet --batch --passphrase "$SECRET" --output - <(echo "${{ needs.CreateCertificate.cname_validation_p1_encrypted }}" | base64 --decode))
+          echo "::add-mask::$cname_validation_p1"
+          echo "::set-output name=cname_validation_p1::$cname_validation_p1"
+
+          cname_validation_p2=$(gpg --decrypt --quiet --batch --passphrase "$SECRET" --output - <(echo "${{ needs.CreateCertificate.cname_validation_p2_encrypted }}" | base64 --decode))
+          echo "::add-mask::$cname_validation_p2"
+          echo "::set-output name=cname_validation_p2::$cname_validation_p2"
+
+          cname_validation_ttl=$(gpg --decrypt --quiet --batch --passphrase "$SECRET" --output - <(echo "${{ needs.CreateCertificate.cname_validation_ttl_encrypted }}" | base64 --decode))
+          echo "::add-mask::$cname_validation_ttl"
+          echo "::set-output name=cname_validation_ttl::$cname_validation_ttl"          
       - name: Add values Cname in Cpanel
         id: set_cname_dns
         uses: ./.actions/DNS/EditZone
@@ -69,9 +133,9 @@ jobs:
           token: '${{ secrets.TOKEN_CPANEL }}'
           user: '${{ secrets.USER_CPANEL }}'   
           zone: '${{ secrets.ZONE_CPANEL }}' 
-          name: '${{ needs.CreateCertificate.outputs.cname_validation_p1 }}'  
-          value: '${{ needs.CreateCertificate.outputs.cname_validation_p2 }}'  
-          ttl: '${{ needs.CreateCertificate.outputs.cname_validation_ttl }}'  
+          name: '${{ steps.get_encrypted.outputs.cname_validation_p1 }}'  
+          value: '${{ steps.get_encrypted.outputs.cname_validation_p2 }}'  
+          ttl: '${{ steps.get_encrypted.outputs.cname_validation_ttl }}'  
       - name: Verify DNS by Cname
         if: steps.set_cname_dns.outputs.success == 'true'
         id: verify_dns
