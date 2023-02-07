@@ -1,5 +1,8 @@
 const core = require('@actions/core');
-
+const fetch = (...args) =>
+    import ('node-fetch').then(({ default: fetch }) => fetch(...args));
+const FormData = (...args) =>
+    import ('node-fetch').then(({ default: FormData }) => FormData(...args));
 const apikey_zerossl = core.getInput('apikey-zerossl');
 const ssl_csr = core.getInput('ssl-csr');
 
