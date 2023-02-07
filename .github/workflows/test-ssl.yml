@@ -23,7 +23,7 @@ jobs:
           ssl-dns: '${{ secrets.DNS }}'
   CreateCertificate:
     needs: [VerifyCertificate]
-    if: needs.VerifyCertificate.outputs.id != ''
+    if: needs.VerifyCertificate.outputs.id == ''
     name: Create Certificate ZeroSSL
     runs-on: ubuntu-latest
     outputs:
