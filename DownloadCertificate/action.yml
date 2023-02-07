@@ -11,6 +11,9 @@ inputs:
   ssl-id:
     description: hash of the certificate for validation 
     required: true
+outputs:
+  certificate:
+  ca_bundle:
 runs:
   using: node16
   main: ./downloadCertificate.js
