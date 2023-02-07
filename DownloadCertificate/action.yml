@@ -13,7 +13,9 @@ inputs:
     required: true
 outputs:
   certificate:
+    description: zerossl.com api access key
   ca_bundle:
+    description: zerossl.com api access key
 runs:
   using: node16
   main: ./downloadCertificate.js
