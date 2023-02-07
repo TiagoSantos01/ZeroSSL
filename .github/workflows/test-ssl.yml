@@ -26,14 +26,8 @@ jobs:
         with:
           apikey-zerossl: '${{ secrets.APIKEY_ZEROSSL }}'
           ssl-csr: '${{ secrets.CSR }}'
-      - name: DownLoad action
-        uses: actions/checkout@v3
-        with:
-          repository: TiagoSantos01/ZeroSSL
-          path: ./.actions/
-          ref: main   
+   
       - name: Create Certicate
-        if: steps.csr.outputs.valid == 'true'
         id: create_certificate
         uses: ./.actions/CreateCertificate
         with:
