@@ -182,7 +182,7 @@ jobs:
         with:
           apikey-zerossl: '${{ secrets.APIKEY_ZEROSSL }}'
           ssl-id: '${{ needs.VerifyCertificate.outputs.id }}${{ needs.CreateCertificate.outputs.id }}'    
-          ssl-path: ${{ github.workspace }}/ssl/
+          ssl-path: ${{ github.workspace }}/ssl
 
 
 
