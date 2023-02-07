@@ -26,7 +26,7 @@ const CheckDNS = () => {
             if (!Result.success) {
                 retry++;
                 if (retry < 10)
-                    setInterval(CheckDNS(), 5 * 1000);
+                    setTimeout(CheckDNS(), 5 * 1000);
             } else
                 console.info("Dns Valid");
             core.setOutput("valid", Result.sucess)
