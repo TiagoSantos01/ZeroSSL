@@ -26,7 +26,7 @@ fetch(`${DNS}/${ssl_id}/download/return?access_key=${apikey_zerossl}`, {
                 console.log('Saved!');
             });
         } catch (e) {
-            core.setFailed(Result.error);
+            core.setFailed(e.message);
         }
     }).catch(e => core.setFailed("To transform response into json")))
     .catch(e => core.setFailed("Failed when trying to request certificate verification"))
