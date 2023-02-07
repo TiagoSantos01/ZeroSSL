@@ -2,20 +2,13 @@ name: Certificate ZeroSSL
 on: 
   push:
 jobs:
-  CreateCertificate:
-    name: Create Certificate ZeroSSL
+  VerifyCertificate:
+    name: Check if you have valid certificate ZeroSSL
     runs-on: ubuntu-latest
     outputs:
       id: ${{ steps.create_certificate.outputs.id }}
-      email_validation_encrypted: ${{ steps.encrypted.outputs.email_validation_encrypted }}
-      file_validation_url_http_encrypted: ${{ steps.encrypted.outputs.file_validation_url_http_encrypted }}
-      file_validation_url_https_encrypted: ${{ steps.encrypted.outputs.file_validation_url_https_encrypted }}
-      file_validation_content_encrypted: ${{ steps.encrypted.outputs.file_validation_content_encrypted }}
-      cname_validation_p1_encrypted: ${{ steps.encrypted.outputs.cname_validation_p1_encrypted }}
-      cname_validation_p2_encrypted: ${{ steps.encrypted.outputs.cname_validation_p2_encrypted }}
-      cname_validation_ttl_encrypted: ${{ steps.encrypted.outputs.cname_validation_ttl_encrypted }}
     steps:
-      - name: DownLoad action
+      - name: Download action
         uses: actions/checkout@v3
         with:
           repository: TiagoSantos01/ZeroSSL
@@ -28,8 +21,28 @@ jobs:
           apikey-zerossl: '${{ secrets.APIKEY_ZEROSSL }}'
           ssl-certificate-status  : issued
           ssl-dns: '${{ secrets.DNS }}'
+  CreateCertificate:
+    needs: [VerifyCertificate]
+    if: needs.VerifyCertificate.outputs.id != ''
+    name: Create Certificate ZeroSSL
+    runs-on: ubuntu-latest
+    outputs:
+      id: ${{ steps.create_certificate.outputs.id }}
+      email_validation_encrypted: ${{ steps.encrypted.outputs.email_validation_encrypted }}
+      file_validation_url_http_encrypted: ${{ steps.encrypted.outputs.file_validation_url_http_encrypted }}
+      file_validation_url_https_encrypted: ${{ steps.encrypted.outputs.file_validation_url_https_encrypted }}
+      file_validation_content_encrypted: ${{ steps.encrypted.outputs.file_validation_content_encrypted }}
+      cname_validation_p1_encrypted: ${{ steps.encrypted.outputs.cname_validation_p1_encrypted }}
+      cname_validation_p2_encrypted: ${{ steps.encrypted.outputs.cname_validation_p2_encrypted }}
+      cname_validation_ttl_encrypted: ${{ steps.encrypted.outputs.cname_validation_ttl_encrypted }}
+    steps:
+      - name: Download action
+        uses: actions/checkout@v3
+        with:
+          repository: TiagoSantos01/ZeroSSL
+          path: ./.actions/ZeroSSL
+          ref: main
       - name: Valid CSR
-        if: steps.check_certificate.outputs.id == ''
         id: csr
         uses: ./.actions/ZeroSSL/ValidCSR
         with:
@@ -77,10 +90,9 @@ jobs:
           echo "::add-mask::${{ steps.create_certificate.outputs.cname_validation_ttl }}"
           cname_validation_ttl_encrypted=$(gpg --symmetric --batch --passphrase "$SECRET" --output - <(echo "${{ steps.create_certificate.outputs.cname_validation_ttl }}") | base64 -w0)
           echo "::set-output name=cname_validation_ttl_encrypted::$cname_validation_ttl_encrypted"
-
   VerifyDns:
     needs: [CreateCertificate]
-    if: needs.CreateCertificate.outputs.id != ''
+    if: needs.VerifyCertificate.outputs.id == ''
     name: Verify DNS
     runs-on: ubuntu-latest
     steps:
