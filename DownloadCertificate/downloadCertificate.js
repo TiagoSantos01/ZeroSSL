@@ -17,15 +17,15 @@ fetch(`${DNS}/${ssl_id}/download/return?access_key=${apikey_zerossl}`, {
     .then(Response => Response.json().then(Result => {
         try {
             var fs = require('fs');
-            fs.createWriteStream(`${ssl_path}/certificate.crt`, '', function(err) {
+            fs.mkdir(`${ssl_path}`, 0722)
+            fs.writeFile(`${ssl_path}/certificate.crt`, Result['certificate.crt'], function(err) {
                 if (err) throw err;
                 console.log('Saved!');
-                fs.writeFile(`${ssl_path}/certificate.crt`, Result['certificate.crt'], function(err) {
-                    if (err) throw err;
-                    console.log('Saved!');
-                });
-
             });
+            // fs.writeFile(`${ssl_path}/certificate2.crt`, Result['ca_bundle.crt'], function(err) {
+            //     if (err) throw err;
+            //     console.log('Saved!');
+            // });
         } catch (e) {
             core.setFailed(e.message);
         }
