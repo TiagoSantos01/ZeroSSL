@@ -25,6 +25,7 @@ fetch(`${DNS}?access_key=${apikey_zerossl}`, {
         try {
             const validation = Result.validation;
             if (validation.commom_name == ssl_dns) {
+                console.log("passou")
                 core.setOutput('id', Result.id);
                 core.setOutput('email_validation', JSON.stringify(Result.email_validation[ssl_dns]));
 
