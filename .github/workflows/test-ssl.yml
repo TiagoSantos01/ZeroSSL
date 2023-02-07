@@ -27,7 +27,7 @@ jobs:
           apikey-zerossl: '${{ secrets.APIKEY_ZEROSSL }}'
           ssl-csr: '${{ secrets.CSR }}'   
       - name: Create Certicate
-        if: csr.valid == true
+        if: needs.checkCertificate.csr.valid == true
         id: create-certificate
         uses: ./.actions/CreateCertificate
         with:
