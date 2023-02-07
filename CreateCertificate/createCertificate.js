@@ -22,20 +22,26 @@ fetch(`${DNS}?access_key=${apikey_zerossl}`, {
         body: body
     })
     .then(Response => Response.json().then(Result => {
-        const validation = Result.validation;
-        if (el.commom_name == ssl_dns) {
-            core.setOutput('check-id', Result.id);
-            core.setOutput('email_validation', JSON.stringify(Result.email_validation[ssl_dns]));
+        try {
+            console.log(Result)
+            const validation = Result.validation;
+            if (el.commom_name == ssl_dns) {
+                core.setOutput('id', Result.id);
+                core.setOutput('email_validation', JSON.stringify(Result.email_validation[ssl_dns]));
 
-            core.setOutput('file_validation_url_http', validation[ssl_dns].file_validation_url_http);
-            core.setOutput('file_validation_url_https', validation[ssl_dns].file_validation_url_https);
-            core.setOutput('file_validation_content', validation[ssl_dns].file_validation_content);
+                core.setOutput('file_validation_url_http', validation[ssl_dns].file_validation_url_http);
+                core.setOutput('file_validation_url_https', validation[ssl_dns].file_validation_url_https);
+                core.setOutput('file_validation_content', validation[ssl_dns].file_validation_content);
 
-            core.setOutput('cname_validation_p1', validation[ssl_dns].cname_validation_p1);
-            core.setOutput('cname_validation_p2', validation[ssl_dns].cname_validation_p2);
+                core.setOutput('cname_validation_p1', validation[ssl_dns].cname_validation_p1);
+                core.setOutput('cname_validation_p2', validation[ssl_dns].cname_validation_p2);
 
-            core.setOutput('cname_validation_ttl', '3600');
+                core.setOutput('cname_validation_ttl', '3600');
 
+            }
+        } catch (e) {
+            core.setFailed(e.message);
         }
-    }).catch(Resulterror => { throw new Error("Error", Resulterror); }))
-    .catch(error => { throw new Error("Error request get certificates", error); })
+
+    }).catch(e => core.setFailed("To transform response into json")))
+    .catch(e => core.setFailed("Failed when trying to request certificate verification"))
