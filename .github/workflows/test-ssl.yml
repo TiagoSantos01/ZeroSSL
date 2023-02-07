@@ -164,9 +164,9 @@ jobs:
           validation_email: ''
   DownloadCertificate:
     # needs: [VerifyDns]
-    # if: ${{ always() }}
+    if: ${{ always() }}
     needs: [VerifyCertificate,VerifyDns]
-    if: needs.VerifyCertificate.outputs.id != '' || needs.CreateCertificate.outputs.id != ''
+    # if: needs.VerifyCertificate.outputs.id != '' || needs.CreateCertificate.outputs.id != ''
     name: Download Certificate
     runs-on: ubuntu-latest
     steps:
