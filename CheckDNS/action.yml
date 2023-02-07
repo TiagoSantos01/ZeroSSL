@@ -12,9 +12,12 @@ inputs:
     required: true
   validation_email:
     description: 'If your selected verification method is email verification, use this parameter to specify one or multiple comma-seperated verification email addresses. You need to specify one verification email address per domain.'
+outputs:
+  valid:
+    description: check if DNS has been validated 
 runs:
   using: node16
-  main: {{ github.action_path }}/checkDNS.js
+  main: ./checkDNS.js
 branding:
   icon: unlock
   color: gray-dark

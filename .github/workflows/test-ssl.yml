@@ -2,7 +2,7 @@ name: Certificate ZeroSSL
 on: 
   push:
 jobs:
-  checkCertificate:
+  CreateCertificate:
     name: Test Certificate ZeroSSL
     runs-on: ubuntu-latest
     steps:
@@ -34,9 +34,30 @@ jobs:
           apikey-zerossl: '${{ secrets.APIKEY_ZEROSSL }}'
           ssl-dns: '${{ secrets.DNS }}'    
           ssl-csr: '${{ secrets.CSR }}'   
-          ssl-validaty-days: '30'
+          ssl-validaty-days: '90'
           ssl-strict-domains: '1'
-
+ VerifyDns:
+    name: Test Certificate ZeroSSL
+    runs-on: ubuntu-latest
+    steps:
+      - name: DownLoad action
+        uses: actions/checkout@v3
+        with:
+          repository: TiagoSantos01/ZeroSSL
+          path: ./.actions/
+          ref: main
+      - name: teste
+        run: echo ${{ needs.CreateCertificate.create_certificate.outputs.id }}
+      # - name: Create Certicate
+      #   if: needs.CreateCertificate.create_certificate.outputs.id == 'true'
+      #   id: create_certificate
+      #   uses: ./.actions/CheckDNS
+      #   with:
+      #     apikey-zerossl: '${{ secrets.APIKEY_ZEROSSL }}'
+      #     ssl-dns: '${{ secrets.DNS }}'    
+      #     ssl-csr: '${{ secrets.CSR }}'   
+      #     ssl-validaty-days: '90'
+      #     ssl-strict-domains: '1'
 
 
 
