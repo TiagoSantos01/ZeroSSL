@@ -1,4 +1,7 @@
 const core = require('@actions/core');
+const FormData = require('form-data');
+const fetch = (...args) =>
+    import ('node-fetch').then(({ default: fetch }) => fetch(...args));
 
 const apikey_zerossl = core.getInput('apikey-zerossl');
 const ssl_dns = core.getInput('ssl-dns');
@@ -8,7 +11,7 @@ const ssl_strict_domains = core.getInput('ssl-strict-domains');
 
 const DNS = 'https://api.zerossl.com/certificates';
 
-const body = new FormData;
+const body = new FormData();
 body.append("certificate_domains", ssl_dns)
 body.append("certificate_csr", ssl_csr)
 body.append("certificate_validity_days", ssl_validaty_days)
