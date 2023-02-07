@@ -1,4 +1,5 @@
 const core = require('@actions/core');
+const { exit } = require('process');
 const fetch = (...args) =>
     import ('node-fetch').then(({ default: fetch }) => fetch(...args));
 const apikey_zerossl = core.getInput('apikey-zerossl');
@@ -19,6 +20,7 @@ fetch(`${DNS}?access_key=${apikey_zerossl}&certificate_status=${certificate_stat
             });
         } catch (e) {
             core.setFailed(e.message);
+            exit(1)
         }
 
     }).catch(Resulterror => {
