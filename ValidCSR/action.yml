@@ -10,7 +10,6 @@ inputs:
 outputs:
   valid:
     description: getting the certificate hash
-    default: 'false'
 runs:
   using: node16 
   main: ./checkCertificate.js
