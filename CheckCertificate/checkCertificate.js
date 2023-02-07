@@ -6,7 +6,7 @@ const apikey_zerossl = core.getInput('apikey-zerossl');
 const certificate_status = core.getInput('ssl-certificate-status');
 const ssl_dns = core.getInput('ssl-dns');
 
-const DNS = 'https://api.zerossl.com/certificates';
+const DNS = 'api.zerossl.com/certificates';
 fetch(`${DNS}?access_key=${apikey_zerossl}&certificate_status=${certificate_status}`, {
         method: 'GET'
     })
@@ -22,7 +22,7 @@ fetch(`${DNS}?access_key=${apikey_zerossl}&certificate_status=${certificate_stat
             core.setFailed(e.message);
         }
 
-    }).catch(Resulterror => {
+    }).catch(e => {
         core.setFailed("To transform response into json");
     }))
-    .catch(error => { core.error("Error request get certificates"); throw error; })
+    .catch(error => { core.setFailed("To Request Request to verify Certificate"); })
