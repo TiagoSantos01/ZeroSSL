@@ -12,7 +12,7 @@ fetch(`${DNS}?access_key=${apikey_zerossl}&certificate_status=${certificate_stat
     .then(Response => Response.json().then(Result => {
         try {
             Result.results.forEach(el => {
-                if (el.commom_name == ssl_dns) {
+                if (el['common_name'] == ssl_dns) {
                     core.setOutput('id', el.id);
                     core.setOutput('json', JSON.stringify(el));
                 }
