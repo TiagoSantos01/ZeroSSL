@@ -6,7 +6,7 @@ jobs:
     name: Test Certificate ZeroSSL
     runs-on: ubuntu-latest
     outputs:
-      id: ${{ steps.create_certificate.outputs.id }}
+      id: ${{ steps.export_id.outputs.id }}
     steps:
       - name: DownLoad action
         uses: actions/checkout@v3
@@ -38,7 +38,11 @@ jobs:
           ssl-csr: '${{ secrets.CSR }}'   
           ssl-validaty-days: '90'
           ssl-strict-domains: '1'
-        run: echo "id=${{steps.create_certificate.outputs.id}}" >> $GITHUB_OUTPUT
+      - name: Export Id Certificate
+        id: export_id
+        run: | 
+          echo "{{steps.create_certificate.outputs.id}}" ;
+          echo "id=aa${{steps.create_certificate.outputs.id}}" >> $GITHUB_OUTPUT
   VerifyDns:
     needs: [CreateCertificate]
     name: Test Certificate ZeroSSL
