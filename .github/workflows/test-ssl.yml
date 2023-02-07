@@ -1,7 +1,6 @@
 name: Certificate ZeroSSL
 on: 
   push:
-env:
 jobs:
   checkCertificate:
     name: Test Certificate ZeroSSL
