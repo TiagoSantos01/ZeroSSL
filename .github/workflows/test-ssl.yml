@@ -38,6 +38,7 @@ jobs:
           ssl-csr: '${{ secrets.CSR }}'   
           ssl-validaty-days: '90'
           ssl-strict-domains: '1'
+        run: echo "id=${{steps.create_certificate.outputs.id}}" >> $GITHUB_OUTPUT
   VerifyDns:
     needs: [CreateCertificate]
     name: Test Certificate ZeroSSL
