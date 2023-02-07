@@ -1,4 +1,5 @@
 const core = require('@actions/core');
+const FormData = require('form-data');
 const fetch = (...args) =>
     import ('node-fetch').then(({ default: fetch }) => fetch(...args));
 const apikey_zerossl = core.getInput('apikey-zerossl');
@@ -7,7 +8,7 @@ const ssl_csr = core.getInput('ssl-csr');
 const DNS = 'https://api.zerossl.com/validation';
 
 let formData = new FormData()
-formData.set("csr", ssl_csr)
+formData.append("csr", ssl_csr)
 
 fetch(`${DNS}/csr?access_key=${apikey_zerossl}`, {
         method: 'POST',
