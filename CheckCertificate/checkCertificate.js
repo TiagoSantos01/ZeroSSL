@@ -1,5 +1,4 @@
 const core = require('@actions/core');
-const { exit } = require('process');
 const fetch = (...args) =>
     import ('node-fetch').then(({ default: fetch }) => fetch(...args));
 const apikey_zerossl = core.getInput('apikey-zerossl');
