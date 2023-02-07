@@ -5,7 +5,7 @@ const ssl_csr = core.getInput('ssl-csr');
 
 const DNS = 'https://api.zerossl.com/validation';
 
-formData = new FormData;
+const formData = new FormData;
 formData.append("csr", ssl_csr)
 
 fetch(`${DNS}/csr?access_key=${apikey_zerossl}`, {
