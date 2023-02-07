@@ -19,6 +19,23 @@ jobs:
           apikey-zerossl: '${{ secrets.APIKEY_ZEROSSL }}'
           ssl-certificate-status  : issued
           ssl-dns: '${{ secrets.DNS }}'
+      - name: Valid CSR
+        if: check-certificate.id == ''
+        id: csr
+        uses: ./.actions/ValidCSR
+        with:
+          apikey-zerossl: '${{ secrets.APIKEY_ZEROSSL }}'
+          ssl-csr: '${{ secrets.CSR }}'   
+      - name: Create Certicate
+        if: csr.valid == true
+        id: create-certificate
+        uses: ./.actions/CreateCertificate
+        with:
+          apikey-zerossl: '${{ secrets.APIKEY_ZEROSSL }}'
+          ssl-dns: '${{ secrets.DNS }}'    
+          ssl-csr: '${{ secrets.CSR }}'   
+          ssl-validaty-days: 30
+          ssl-strict-domains: 1
 
 
 

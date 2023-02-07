@@ -12,9 +12,9 @@ inputs:
     default: ''    
     required: false
 outputs:
-  check-id:
+  id:
     description: getting the certificate hash
-  check-json:
+  json:
     description: getting certificate object
 runs:
   using: node16 

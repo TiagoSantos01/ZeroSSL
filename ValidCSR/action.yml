@@ -7,9 +7,13 @@ inputs:
   ssl-csr:
     description: the CSR certificate ( BEGIN CERTIFICATE REQUEST ) in 2048 key size, can be created at https://csrgenerator.com/
     required: true
+outputs:
+  valid:
+    description: getting the certificate hash
+    default: false
 runs:
-  using: node16
-  main: {{ github.action_path }}/checkCertificate.js
+  using: node16 
+  main: ./checkCertificate.js
 branding:
   icon: unlock
   color: gray-dark

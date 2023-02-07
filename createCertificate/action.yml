@@ -37,8 +37,8 @@ outputs:
   check-id:
     description: getting the certificate hash
 runs:
-  using: node16
-  main: {{ github.action_path }}/createCertificate.js
+  using: node16 
+  main: ./createCertificate.js
 branding:
   icon: unlock
   color: gray-dark

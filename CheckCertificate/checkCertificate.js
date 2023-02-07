@@ -14,15 +14,13 @@ fetch(`${DNS}?access_key=${apikey_zerossl}&certificate_status=${certificate_stat
         try {
             Result.results.forEach(el => {
                 if (el.commom_name == ssl_dns) {
-                    core.setOutput('check-id', el.id);
-                    core.setOutput('check-json', JSON.stringify(el));
+                    core.setOutput('id', el.id);
+                    core.setOutput('json', JSON.stringify(el));
                 }
             });
         } catch (e) {
             core.setFailed(e.message);
         }
 
-    }).catch(e => {
-        core.setFailed("To transform response into json");
-    }))
-    .catch(e => { core.setFailed("Failed when trying to request certificate verification"); })
+    }).catch(e => core.setFailed("To transform response into json")))
+    .catch(e => core.setFailed("Failed when trying to request certificate verification"))
