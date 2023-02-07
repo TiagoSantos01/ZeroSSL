@@ -3,7 +3,7 @@ on:
   push:
 jobs:
   CreateCertificate:
-    name: Test Certificate ZeroSSL
+    name: Create Certificate ZeroSSL
     runs-on: ubuntu-latest
     outputs:
       id: ${{ steps.create_certificate.outputs.id }}
@@ -80,6 +80,7 @@ jobs:
 
   VerifyDns:
     needs: [CreateCertificate]
+    if: needs.CreateCertificate.outputs.id != ''
     name: Verify DNS
     runs-on: ubuntu-latest
     steps:
