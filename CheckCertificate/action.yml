@@ -1,0 +1,24 @@
+name: Create Certificate SSL
+description: Create Certificate SSL in use apache and outhers
+inputs:
+  apikey-zerossl:
+    description: zerossl.com api access key
+    required: true
+  ssl-dns:
+    description: the DNS for which the certificate will be created
+    required: true
+  ssl-certificate-status:
+    description: 'Use this parameter to specify one or multiple comma-separated certificate status values. Possible values: draft, pending_validation, issued, cancelled, revoked, expired'
+    default: ''    
+    required: false
+outputs:
+  check-id:
+    description: getting the certificate hash
+  check-json:
+    description: getting certificate object
+runs:
+  using: node16
+  main: {{ github.action_path }}/checkCertificate.js
+branding:
+  icon: unlock
+  color: gray-dark

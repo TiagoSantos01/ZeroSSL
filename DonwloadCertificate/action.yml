@@ -1,0 +1,19 @@
+name: Create Certificate SSL
+description: Create Certificate SSL in use apache and outhers
+inputs:
+  ssl-path:
+    description: Path where to save the generated certificates
+    required: false
+    default: ${{ github.workspace }}
+  apikey-zerossl:
+    description: zerossl.com api access key
+    required: true
+  ssl-id:
+    description: hash of the certificate for validation 
+    required: true
+runs:
+  using: node16
+  main: {{ github.action_path }}/checkCertificate.js
+branding:
+  icon: unlock
+  color: gray-dark

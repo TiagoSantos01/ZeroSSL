@@ -1,0 +1,20 @@
+name: Create Certificate SSL
+description: Create Certificate SSL in use apache and outhers
+inputs:
+  apikey-zerossl:
+    description: zerossl.com api access key
+    required: true
+  ssl-id:
+    description: hash of the certificate for validation 
+    required: true
+  validation_method:
+    description: 'se this parameter to specify the verification method to use for this certificate. Possible values: EMAIL (email verification), CNAME_CSR_HASH (CNAME verification), HTTP_CSR_HASH (HTTP file upload), HTTPS_CSR_HASH (HTTPS file upload)'
+    required: true
+  validation_email:
+    description: 'If your selected verification method is email verification, use this parameter to specify one or multiple comma-seperated verification email addresses. You need to specify one verification email address per domain.'
+runs:
+  using: node16
+  main: {{ github.action_path }}/checkDNS.js
+branding:
+  icon: unlock
+  color: gray-dark

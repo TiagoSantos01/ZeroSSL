@@ -1,0 +1,44 @@
+name: Create Certificate SSL
+description: Create Certificate SSL in use apache and outhers
+inputs:
+  apikey-zerossl:
+    description: zerossl.com api access key
+    required: true
+  ssl-dns:
+    description: the DNS for which the certificate will be created
+    required: true
+  ssl-csr:
+    description: the CSR certificate ( BEGIN CERTIFICATE REQUEST ) in 2048 key size, can be created at https://csrgenerator.com/
+    required: true
+  ssl-validaty-days:
+    description: how long the certificate should be valid
+    default: '90'
+    required: false
+  ssl-strict-domains:
+    description: Set this parameter to 1 in order to create a certificate exactly for the domains passed in the certificate_domains parameter. This means the certificates' Subject Alternative Names (SAN) will not include any alternative DNS entries.
+    default: '1'    
+    required: false
+outputs:
+  email_validation:
+    description: mailing list where you can validate DNS
+  file_validation_url_https:
+    description: validation via file on https site
+  file_validation_url_http:
+    description: validation via file on http site
+  file_validation_content:
+    description: file content for validation via file on http or https website
+  cname_validation_p1:
+    description: name for DNS validation via CNAME
+  cname_validation_p2:
+    description: value for DNS validation via CNAME
+  cname_validation_ttl:
+    description: time ttl for DNS validation via CNAME
+    default: '3600'
+  check-id:
+    description: getting the certificate hash
+runs:
+  using: node16
+  main: {{ github.action_path }}/createCertificate.js
+branding:
+  icon: unlock
+  color: gray-dark

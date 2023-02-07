@@ -1,0 +1,15 @@
+name: Create Certificate SSL
+description: Create Certificate SSL in use apache and outhers
+inputs:
+  apikey-zerossl:
+    description: zerossl.com api access key
+    required: true
+  ssl-csr:
+    description: the CSR certificate ( BEGIN CERTIFICATE REQUEST ) in 2048 key size, can be created at https://csrgenerator.com/
+    required: true
+runs:
+  using: node16
+  main: {{ github.action_path }}/checkCertificate.js
+branding:
+  icon: unlock
+  color: gray-dark
