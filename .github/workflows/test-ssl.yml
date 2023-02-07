@@ -34,7 +34,7 @@ jobs:
           apikey-zerossl: '${{ secrets.APIKEY_ZEROSSL }}'
           ssl-dns: '${{ secrets.DNS }}'    
           ssl-csr: '${{ secrets.CSR }}'   
-          ssl-validaty-days: '90'
+          ssl-validaty-days: '30'
           ssl-strict-domains: '1'
 
 

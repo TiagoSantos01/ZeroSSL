@@ -23,9 +23,8 @@ fetch(`${DNS}?access_key=${apikey_zerossl}`, {
     })
     .then(Response => Response.json().then(Result => {
         try {
-            console.log(Result)
             const validation = Result.validation;
-            if (el.commom_name == ssl_dns) {
+            if (validation.commom_name == ssl_dns) {
                 core.setOutput('id', Result.id);
                 core.setOutput('email_validation', JSON.stringify(Result.email_validation[ssl_dns]));
 
@@ -40,7 +39,7 @@ fetch(`${DNS}?access_key=${apikey_zerossl}`, {
 
             }
         } catch (e) {
-            core.setFailed(e.message);
+            core.setFailed(Result);
         }
 
     }).catch(e => core.setFailed("To transform response into json")))
