@@ -18,16 +18,21 @@ fetch(`${DNS}/${ssl_id}/download/return?access_key=${apikey_zerossl}`, {
                 fs.mkdir(`${ssl_path}`, 0722, (err) => {
                     core.info(`directory created successfully ( ${ssl_path} )`);
                 })
-            fs.writeFile(`${ssl_path}/certificate.crt`, Result['certificate.crt'], function(err) {
+            const certificate = `${ssl_path}/certificate.crt`;
+            const ca_bundle = `${ssl_path}/ca_bundle.crt`
+            fs.unlink(certificate)
+            fs.unlink(ca_bundle)
+
+            fs.writeFile(certificate, Result['certificate.crt'], function(err) {
                 if (err) throw err;
                 console.log('certificate.crt successfully downloaded!');
-                core.setOutput('certificate', `${ssl_path}/certificate.crt`)
+                core.setOutput('certificate', `${certificate}`)
 
             });
-            fs.writeFile(`${ssl_path}/ca_bundle.crt`, Result['ca_bundle.crt'], function(err) {
+            fs.writeFile(ca_bundle, Result['ca_bundle.crt'], function(err) {
                 if (err) throw err;
                 console.log('ca_bundle.crt successfully downloaded!');
-                core.setOutput('ca_bundle', `${ssl_path}/ca_bundle.crt`)
+                core.setOutput('ca_bundle', `${ca_bundle}`)
             });
         } catch (e) {
             core.setFailed(e.message);
