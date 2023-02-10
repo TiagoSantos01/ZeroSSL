@@ -18,9 +18,9 @@ jobs:
         id: check_certificate
         uses: ./.actions/ZeroSSL/CheckCertificate
         with:
-          apikey-zerossl: '${{ secrets.APIKEY_ZEROSSL }}'
-          ssl-certificate-status  : issued
-          ssl-dns: '${{ secrets.DNS }}'
+          apikey_zerossl: '${{ secrets.APIKEY_ZEROSSL }}'
+          ssl_certificate_status  : issued
+          ssl_dns: '${{ secrets.DNS }}'
   CreateCertificate:
     needs: [VerifyCertificate]
     if: needs.VerifyCertificate.outputs.id == ''
@@ -46,18 +46,18 @@ jobs:
         id: csr
         uses: ./.actions/ZeroSSL/ValidCSR
         with:
-          apikey-zerossl: '${{ secrets.APIKEY_ZEROSSL }}'
-          ssl-csr: '${{ secrets.CSR }}'
+          apikey_zerossl: '${{ secrets.APIKEY_ZEROSSL }}'
+          ssl_csr: '${{ secrets.CSR }}'
       - name: Create Certicate
         if: steps.csr.outputs.valid == 'true'
         id: create_certificate
         uses: ./.actions/ZeroSSL/CreateCertificate
         with:
-          apikey-zerossl: '${{ secrets.APIKEY_ZEROSSL }}'
-          ssl-dns: '${{ secrets.DNS }}'    
-          ssl-csr: '${{ secrets.CSR }}'   
-          ssl-validaty-days: '90'
-          ssl-strict-domains: '1'
+          apikey_zerossl: '${{ secrets.APIKEY_ZEROSSL }}'
+          ssl_dns: '${{ secrets.DNS }}'    
+          ssl_csr: '${{ secrets.CSR }}'   
+          ssl_validaty_days: '90'
+          ssl_strict_domains: '1'
       - name: encrypted variables 
         id: encrypted
         env:
@@ -158,8 +158,8 @@ jobs:
         id: verify_dns
         uses: ./.actions/ZeroSSL/CheckDNS
         with:
-          apikey-zerossl: '${{ secrets.APIKEY_ZEROSSL }}'
-          ssl-id: '${{ needs.CreateCertificate.outputs.id }}'    
+          apikey_zerossl: '${{ secrets.APIKEY_ZEROSSL }}'
+          ssl_id: '${{ needs.CreateCertificate.outputs.id }}'    
           validation_method: 'CNAME_CSR_HASH'   
           validation_email: ''
   DownloadCertificate:
@@ -178,9 +178,9 @@ jobs:
         id: downloadCertificate
         uses: ./.actions/ZeroSSL/DownloadCertificate
         with:
-          apikey-zerossl: '${{ secrets.APIKEY_ZEROSSL }}'
-          ssl-id: '${{ needs.VerifyCertificate.outputs.id }}${{ needs.CreateCertificate.outputs.id }}'    
-          ssl-path: ${{ github.workspace }}/ssl
+          apikey_zerossl: '${{ secrets.APIKEY_ZEROSSL }}'
+          ssl_id: '${{ needs.VerifyCertificate.outputs.id }}${{ needs.CreateCertificate.outputs.id }}'    
+          ssl_path: ${{ github.workspace }}/ssl
 
 
 
