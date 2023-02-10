@@ -1,20 +1,20 @@
 name: Create Certificate SSL
 description: Create Certificate SSL in use apache and outhers
 inputs:
-  apikey-zerossl:
+  apikey_zerossl:
     description: zerossl.com api access key
     required: true
-  ssl-dns:
+  ssl_dns:
     description: the DNS for which the certificate will be created
     required: true
-  ssl-csr:
+  ssl_csr:
     description: the CSR certificate ( BEGIN CERTIFICATE REQUEST ) in 2048 key size, can be created at https://csrgenerator.com/
     required: true
-  ssl-validaty-days:
+  ssl_validaty_days:
     description: how long the certificate should be valid
     default: '90'
     required: false
-  ssl-strict-domains:
+  ssl_strict_domains:
     description: Set this parameter to 1 in order to create a certificate exactly for the domains passed in the certificate_domains parameter. This means the certificates' Subject Alternative Names (SAN) will not include any alternative DNS entries.
     default: '1'    
     required: false

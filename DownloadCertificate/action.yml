@@ -1,14 +1,14 @@
 name: Create Certificate SSL
 description: Create Certificate SSL in use apache and outhers
 inputs:
-  ssl-path:
+  ssl_path:
     description: Path where to save the generated certificates
     required: false
     default: ${{ github.workspace }}
-  apikey-zerossl:
+  apikey_zerossl:
     description: zerossl.com api access key
     required: true
-  ssl-id:
+  ssl_id:
     description: hash of the certificate for validation 
     required: true
 outputs:

@@ -1,10 +1,10 @@
 name: Create Certificate SSL
 description: Create Certificate SSL in use apache and outhers
 inputs:
-  apikey-zerossl:
+  apikey_zerossl:
     description: zerossl.com api access key
     required: true
-  ssl-csr:
+  ssl_csr:
     description: the CSR certificate ( BEGIN CERTIFICATE REQUEST ) in 2048 key size, can be created at https://csrgenerator.com/
     required: true
 outputs:

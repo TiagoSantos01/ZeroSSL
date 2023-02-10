@@ -2,9 +2,9 @@ const core = require('@actions/core');
 const fetch = (...args) =>
     import ('node-fetch').then(({ default: fetch }) => fetch(...args));
 
-const apikey_zerossl = core.getInput('apikey-zerossl');
-const ssl_id = core.getInput('ssl-id');
-const ssl_path = core.getInput('ssl-path');
+const apikey_zerossl = core.getInput('apikey_zerossl');
+const ssl_id = core.getInput('ssl_id');
+const ssl_path = core.getInput('ssl_path');
 
 const DNS = 'https://api.zerossl.com/certificates';
 

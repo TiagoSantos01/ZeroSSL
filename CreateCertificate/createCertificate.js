@@ -3,11 +3,11 @@ const FormData = require('form-data');
 const fetch = (...args) =>
     import ('node-fetch').then(({ default: fetch }) => fetch(...args));
 
-const apikey_zerossl = core.getInput('apikey-zerossl');
-const ssl_dns = core.getInput('ssl-dns');
-const ssl_csr = core.getInput('ssl-csr');
-const ssl_validaty_days = core.getInput('ssl-validaty-days');
-const ssl_strict_domains = core.getInput('ssl-strict-domains');
+const apikey_zerossl = core.getInput('apikey_zerossl');
+const ssl_dns = core.getInput('ssl_dns');
+const ssl_csr = core.getInput('ssl_csr');
+const ssl_validaty_days = core.getInput('ssl_validaty_days');
+const ssl_strict_domains = core.getInput('ssl_strict_domains');
 
 const DNS = 'https://api.zerossl.com/certificates';
 

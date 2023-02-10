@@ -3,8 +3,8 @@ const FormData = require('form-data');
 const fetch = (...args) =>
     import ('node-fetch').then(({ default: fetch }) => fetch(...args));
 
-const apikey_zerossl = core.getInput('apikey-zerossl');
-const ssl_id = core.getInput('ssl-id');
+const apikey_zerossl = core.getInput('apikey_zerossl');
+const ssl_id = core.getInput('ssl_id');
 const validation_method = core.getInput('validation_method');
 const validation_email = core.getInput('validation_email');
 
