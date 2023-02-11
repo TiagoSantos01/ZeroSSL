@@ -33,7 +33,10 @@ const CheckDNS = () => {
                 core.setOutput("valid", true)
             }
         }).catch(e => core.setFailed("To transform response into json")))
-        .catch(e => core.setFailed("Error request valid DNS"))
+        .catch(e => {
+            core.error(e.message);
+            core.setFailed("Error request valid DNS");
+        })
 }
 
 CheckDNS()
