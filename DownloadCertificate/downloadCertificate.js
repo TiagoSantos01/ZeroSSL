@@ -19,9 +19,11 @@ fetch(`${DNS}/${ssl_id}/download/return?access_key=${apikey_zerossl}`, {
                     core.info(`directory created successfully ( ${ssl_path} )`);
                 })
             const certificate = `${ssl_path}/certificate.crt`;
-            const ca_bundle = `${ssl_path}/ca_bundle.crt`
-            fs.unlink(certificate)
-            fs.unlink(ca_bundle)
+            const ca_bundle = `${ssl_path}/ca_bundle.crt`;
+            if (fs.existsSync(certificate))
+                fs.unlink(certificate, (err) => { if (!err) core.info(`${certificate} was deleted`) })
+            if (fs.existsSync(ca_bundle))
+                fs.unlink(ca_bundle, (err) => { if (!err) core.info(`${ca_bundle} was deleted`) })
 
             fs.writeFile(certificate, Result['certificate.crt'], function(err) {
                 if (err) throw err;
