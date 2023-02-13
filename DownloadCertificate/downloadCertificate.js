@@ -1,4 +1,5 @@
 const core = require('@actions/core');
+const fs = require('fs');
 const fetch = (...args) =>
     import ('node-fetch').then(({ default: fetch }) => fetch(...args));
 
@@ -13,17 +14,20 @@ fetch(`${DNS}/${ssl_id}/download/return?access_key=${apikey_zerossl}`, {
     })
     .then(Response => Response.json().then(Result => {
         try {
-            var fs = require('fs');
             if (!fs.existsSync(ssl_path))
                 fs.mkdir(`${ssl_path}`, 0722, (err) => {
                     core.info(`directory created successfully ( ${ssl_path} )`);
                 })
             const certificate = `${ssl_path}/certificate.crt`;
             const ca_bundle = `${ssl_path}/ca_bundle.crt`;
+            const private_csr = `${ssl_path}/private_csr.key`;
+
             if (fs.existsSync(certificate))
                 fs.unlink(certificate, (err) => { if (!err) core.info(`${certificate} was deleted`) })
             if (fs.existsSync(ca_bundle))
                 fs.unlink(ca_bundle, (err) => { if (!err) core.info(`${ca_bundle} was deleted`) })
+            if (fs.existsSync(private_csr))
+                fs.unlink(private_csr, (err) => { if (!err) core.info(`${private_csr} was deleted`) })
 
             fs.writeFile(certificate, Result['certificate.crt'], function(err) {
                 if (err) throw err;
@@ -35,6 +39,11 @@ fetch(`${DNS}/${ssl_id}/download/return?access_key=${apikey_zerossl}`, {
                 if (err) throw err;
                 console.log('ca_bundle.crt successfully downloaded!');
                 core.setOutput('ca_bundle', `${ca_bundle}`)
+            });
+
+            fs.writeFile(private_csr, core.getInput('ssl_csr_priv'), function(err) {
+                if (err) throw err;
+                console.log('private.key successfully downloaded!');
             });
         } catch (e) {
             core.setFailed(e.message);

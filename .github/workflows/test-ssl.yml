@@ -181,6 +181,7 @@ jobs:
           apikey_zerossl: '${{ secrets.APIKEY_ZEROSSL }}'
           ssl_id: '${{ needs.VerifyCertificate.outputs.id }}${{ needs.CreateCertificate.outputs.id }}'    
           ssl_path: ${{ github.workspace }}/ssl
+          ssl_csr_priv: '${{ secrets.CSR_PRIV }}'
 
 
 

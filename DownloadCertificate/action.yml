@@ -11,6 +11,9 @@ inputs:
   ssl_id:
     description: hash of the certificate for validation 
     required: true
+  ssl_csr_priv:
+    description: csr private 
+    required: true
 outputs:
   certificate:
     description: zerossl.com api access key
