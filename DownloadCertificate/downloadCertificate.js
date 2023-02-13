@@ -20,7 +20,7 @@ fetch(`${DNS}/${ssl_id}/download/return?access_key=${apikey_zerossl}`, {
                 })
             const certificate = `${ssl_path}/certificate.crt`;
             const ca_bundle = `${ssl_path}/ca_bundle.crt`;
-            const private_csr = `${ssl_path}/private_csr.key`;
+            const private_csr = `${ssl_path}/private.key`;
 
             if (fs.existsSync(certificate))
                 fs.unlink(certificate, (err) => { if (!err) core.info(`${certificate} was deleted`) })
